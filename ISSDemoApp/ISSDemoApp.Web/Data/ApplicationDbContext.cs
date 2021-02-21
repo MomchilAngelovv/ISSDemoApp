@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ISSDemoApp.Web.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,7 @@ namespace ISSDemoApp.Web.Data
 			: base(options)
 		{
 		}
+
+		public DbSet<PositionSnapshot> PositionSnapshots { get; set; }
 	}
 }
