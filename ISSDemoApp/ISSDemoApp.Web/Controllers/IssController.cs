@@ -25,9 +25,11 @@ namespace ISSDemoApp.Web.Controllers
 
 		public async Task<IActionResult> Location()
 		{
-			var issLocationData = await this.httpRequester.GetAsync<IssApiLocationDataResponse>("http://api.open-notify.org/iss-now.json");
+			var issLocationData = await this.httpRequester
+				.GetAsync<IssApiLocationDataResponse>("http://api.open-notify.org/iss-now.json");
 
-			var creadedPositionSnapshot = await this.PositionSnapshotsService.CreatePositionSnapshot(issLocationData.Message, issLocationData.Timestamp, issLocationData.IssPosition.Latitude, issLocationData.IssPosition.Longitude);
+			var creadedPositionSnapshot = await this.PositionSnapshotsService
+				.CreatePositionSnapshot(issLocationData.Message, issLocationData.Timestamp, issLocationData.IssPosition.Latitude, issLocationData.IssPosition.Longitude);
 
 			var viewModel = new IssLocationViewModel
 			{
