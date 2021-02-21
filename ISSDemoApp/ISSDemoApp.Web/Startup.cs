@@ -1,4 +1,5 @@
 using ISSDemoApp.Web.Data;
+using ISSDemoApp.Web.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,7 @@ namespace ISSDemoApp.Web
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddControllersWithViews();
 			services.AddHttpClient();
+			services.AddTransient<HttpRequester>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

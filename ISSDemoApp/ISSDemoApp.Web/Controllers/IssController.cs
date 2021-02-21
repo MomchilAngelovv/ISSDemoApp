@@ -6,31 +6,22 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
+using ISSDemoApp.Web.Utilities;
 
 namespace ISSDemoApp.Web.Controllers
 {
 	public class IssController : Controller
 	{
-		private readonly IHttpClientFactory clientFactory;
+		private readonly HttpRequester httpRequester;
 
-		public IssController(IHttpClientFactory clientFactory)
+		public IssController(HttpRequester httpRequester)
 		{
-			this.clientFactory = clientFactory;
+			this.httpRequester = httpRequester;
 		}
 
 		public async Task<IActionResult> Location()
 		{
-			var httpClient = this.clientFactory.CreateClient();
-
-			var response = await httpClient.GetAsync("http://api.open-notify.org/iss-now.json");
-			var responseDataString = await response.Content.ReadAsStringAsync();
-
-			var options = new JsonSerializerOptions
-			{
-				PropertyNameCaseInsensitive = true
-			};
-
-			var issLocationData = JsonSerializer.Deserialize<IssApiLocationDataResponse>(responseDataString, options);
+			var issLocationData = await this.httpRequester.GetAsync<IssApiLocationDataResponse>("http://api.open-notify.org/iss-now.json");
 
 			var viewModel = new IssLocationViewModel
 			{
